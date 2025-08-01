@@ -11,28 +11,63 @@ import { RouterOutlet } from '@angular/router';
 
 export class App {
   protected readonly title = signal('password');
-  
-  includeLetters:boolean = false;
-  includeNumbers:boolean = false;
-  includeSysmbols:boolean = false;
 
-  modifyLetters(){
+  password: string = '';
+  length: number = 0;
+  includeLetters: boolean = false;
+  includeNumbers: boolean = false;
+  includeSymbols: boolean = false;
+
+  modifyLength(value: string) {
+    const parsedValue = parseInt(value);
+
+    if (!isNaN(parsedValue)) {
+      this.length = parsedValue;
+    }
+    else{
+      this.length = 0;
+      this.password = 'Lütfen geçerli bir sayı girin.';
+    }
+  }
+
+  modifyLetters() {
     this.includeLetters = !this.includeLetters;
   }
-
-  modifyNumbers(){
+  modifyNumbers() {
     this.includeNumbers = !this.includeNumbers;
   }
-  modifySymbols(){
-    this.includeSysmbols = !this.includeSysmbols;
+  modifySymbols() {
+    this.includeSymbols = !this.includeSymbols;
   }
 
-  generatePassword(){
-    console.log
-    (`Değerlerim;
-      Alfabe: ${this.includeLetters},
-      Sayılar: ${this.includeNumbers},
-      Semboller: ${this.includeSysmbols}
-      `);
+  generatePassword() {
+    const numbers = '0123456789';
+    const letters = 'abcdefghijklmnopqrstuvwxyz';
+    const symbols = '!@#$%^&*()_+[]{}|;:,.<>?';
+
+    let validChars = '';
+
+    if (this.includeLetters) {
+      validChars += letters;
+    }
+    if (this.includeNumbers) {
+      validChars += numbers;
+    }
+    if (this.includeSymbols) {
+      validChars += symbols;
+    }
+
+    if (validChars.length === 0) {
+      this.password = 'Lütfen en az bir karakter türü seçin: harf, rakam veya sembol.';
+      return;
+    }
+
+    let generatedPassword = '';
+    for (let i = 0; i < this.length; i++) {
+      const randomIndex = Math.floor(Math.random() * validChars.length);
+      generatedPassword += validChars[randomIndex];
+    }
+
+    this.password = generatedPassword;
   }
 }

@@ -16,11 +16,13 @@
     "module": "preserve"
   },
   "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
+    // "enableI18nLegacyMessageIdFormat": false,
+    // "strictInjectionParameters": true,
+    // "strictInputAccessModifiers": true,
+    // "typeCheckHostBindings": true,
+    // "strictTemplates": true
+    "fullTemplateTypeCheck": true,
     "strictInputAccessModifiers": true,
-    "typeCheckHostBindings": true,
-    "strictTemplates": true
   },
   "files": [],
   "references": [
