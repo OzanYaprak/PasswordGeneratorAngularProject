@@ -39,10 +39,12 @@
         <button [disabled]="!(length && (includeLetters || includeSymbols || includeNumbers))" [disabled]="!length"
           (click)="generatePassword()" class="button is-link is-fullwidth">Oluştur</button>
 
-        <div class="box" *ngIf="password">
+        @if (password) {
+        <div class="box">
           <label>Şifreniz</label>
           <input class="input" value="{{ password }}" />
         </div>
+        }
       </div>
     </div>
   </div>
